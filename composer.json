@@ -1,6 +1,6 @@
 {
-    "name": "wezom-agency/browserizr",
-    "description": "Browserizr is tiny library, that detects your browser",
+    "name": "wezom-agency/r2-d2",
+    "description": "tiny helper",
     "type": "library",
     "license": "MIT",
     "authors": [
