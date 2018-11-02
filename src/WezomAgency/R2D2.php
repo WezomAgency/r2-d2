@@ -13,7 +13,7 @@ class R2D2
     }
 
     /** @return string */
-    public static function getRootPath(){
+    public static function getRootPath() {
         return self::$rootPath;
     }
 
@@ -55,8 +55,7 @@ class R2D2
      * @param boolean $absolute
      * @return string
      */
-    public static function fileUrl ($url, $timestamp = false, $absolute = false)
-    {
+    public static function fileUrl ($url, $timestamp = false, $absolute = false) {
         $file = trim($url, '/');
         return implode('', [
             $absolute ? (self::getProtocol() . self::getHost()) : '/',
@@ -69,8 +68,7 @@ class R2D2
      * @param string $path
      * @return bool|string
      */
-    public static function fileContent ($path)
-    {
+    public static function fileContent ($path) {
         $path = self::fileUrl($path, false, false);
         return file_get_contents(self::getRootPath() . $path);
     }
@@ -79,26 +77,26 @@ class R2D2
 
     /**
      * @inspired by https://github.com/LaravelCollective/html
-     * @param string $key
+     * @param string $name
      * @param string $value
      * @return string
      */
-    protected function attributeElement($key, $value)
-    {
-        if (is_numeric($key)) {
+    public function attribute($name, $value) {
+        if (is_numeric($name)) {
             return $value;
         }
 
-        if (is_bool($value) && $key !== 'value') {
-            return $value ? $key : '';
+        if (is_bool($value) && $name !== 'value') {
+            return $value ? $name : '';
         }
 
-        if (is_array($value) && $key === 'class') {
+        if (is_array($value) && $name === 'class') {
             return 'class="' . implode(' ', $value) . '"';
         }
 
         if (!is_null($value)) {
-            return $key . '="' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false) . '"';
+            $text = strip_tags($value);
+            return $name . '="' . htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false) . '"';
         }
     }
 
@@ -106,11 +104,10 @@ class R2D2
      * @param array $attributes
      * @return string
      */
-    public static function attributes ($attributes)
-    {
+    public static function attributes ($attributes) {
         $html = [];
-        foreach ($attributes as $key => $value) {
-            $element = self::attributeElement($key, $value);
+        foreach ($attributes as $name => $value) {
+            $element = self::attribute($name, $value);
             if (!is_null($element)) {
                 $html[] = $element;
             }
