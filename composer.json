@@ -1,0 +1,18 @@
+{
+    "name": "wezom-agency/browserizr",
+    "description": "Browserizr is tiny library, that detects your browser",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleg Dutchenko",
+            "email": "dutchenko.o.dev@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "WezomAgency\\": "src/WezomAgency/"
+        }
+    }
+}
