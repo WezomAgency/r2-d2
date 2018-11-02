@@ -76,12 +76,20 @@ class R2D2
 
 
     /**
-     * @inspired by https://github.com/LaravelCollective/html
+     * @param string $value
+     * @return string
+     */
+    public function attrTextValue($value) {
+            $text = strip_tags($value);
+            return htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
+    }
+
+    /**
      * @param string $name
      * @param string $value
      * @return string
      */
-    public function attribute($name, $value) {
+    public function attr($name, $value) {
         if (is_numeric($name)) {
             return $value;
         }
@@ -95,19 +103,18 @@ class R2D2
         }
 
         if (!is_null($value)) {
-            $text = strip_tags($value);
-            return $name . '="' . htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false) . '"';
+            return $name . '="' . self::attrTextValue($value) . '"';
         }
     }
 
     /**
-     * @param array $attributes
+     * @param array $attrs
      * @return string
      */
-    public static function attributes ($attributes) {
+    public static function attrs ($attrs) {
         $html = [];
-        foreach ($attributes as $name => $value) {
-            $element = self::attribute($name, $value);
+        foreach ($attrs as $name => $value) {
+            $element = self::attr($name, $value);
             if (!is_null($element)) {
                 $html[] = $element;
             }
