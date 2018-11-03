@@ -60,7 +60,7 @@ class R2D2
         return implode('', [
             $absolute ? (self::getProtocol() . self::getHost()) : '/',
             $file,
-            $timestamp ? ('?time' . fileatime(self::getRootPath() . $file)) : ''
+            $timestamp ? ('?time=' . fileatime(self::getRootPath() . $file)) : ''
         ]);
     }
 
