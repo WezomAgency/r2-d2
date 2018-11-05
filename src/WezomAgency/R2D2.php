@@ -9,7 +9,7 @@ class R2D2
 
     /** @param string $rootPath */
     public static function setRootPath($rootPath) {
-        self::$rootPath = $rootPath;
+        self::$rootPath = rtrim($rootPath) . '/';
     }
 
     /** @return string */
@@ -17,7 +17,7 @@ class R2D2
         return self::$rootPath;
     }
 
-    
+
 
     /** @type string */
     private static $host = '';
@@ -32,7 +32,7 @@ class R2D2
         return self::$host;
     }
 
-    
+
 
     /** @type string */
     private static $protocol = 'http://';
@@ -47,7 +47,7 @@ class R2D2
         return self::$protocol;
     }
 
-    
+
 
     /**
      * @param string $url
