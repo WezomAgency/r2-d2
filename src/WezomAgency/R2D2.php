@@ -8,13 +8,31 @@ class R2D2
     private static $rootPath = '';
 
     /** @param string $rootPath */
-    public static function setRootPath($rootPath) {
-        self::$rootPath = rtrim($rootPath) . '/';
+    public static function setRootPath($rootPath)
+    {
+        self::$rootPath = rtrim($rootPath, '/') . '/';
     }
 
     /** @return string */
-    public static function getRootPath() {
+    public static function getRootPath()
+    {
         return self::$rootPath;
+    }
+
+
+    /** @type string */
+    private static $resourceRelativePath = '';
+
+    /** @param string $resourceRelativePath */
+    public static function setResourceRelativePath($resourceRelativePath)
+    {
+        self::$resourceRelativePath = rtrim($resourceRelativePath, '/') . '/';
+    }
+
+    /** @return string */
+    public static function getResourceRelativePath()
+    {
+        return self::$resourceRelativePath;
     }
 
 
@@ -23,12 +41,14 @@ class R2D2
     private static $host = '';
 
     /** @param string $host */
-    public static function setHost ($host) {
+    public static function setHost ($host)
+    {
         self::$host = $host;
     }
 
     /** @return string */
-    public static function getHost () {
+    public static function getHost ()
+    {
         return self::$host;
     }
 
@@ -38,12 +58,14 @@ class R2D2
     private static $protocol = 'http://';
 
     /** @param string $protocol */
-    public static function setProtocol ($protocol) {
+    public static function setProtocol ($protocol)
+    {
         self::$protocol = $protocol;
     }
 
     /** @return string */
-    public static function getProtocol () {
+    public static function getProtocol ()
+    {
         return self::$protocol;
     }
 
@@ -55,7 +77,8 @@ class R2D2
      * @param boolean $absolute
      * @return string
      */
-    public static function fileUrl ($url, $timestamp = false, $absolute = false) {
+    public static function fileUrl ($url, $timestamp = false, $absolute = false)
+    {
         $file = trim($url, '/');
         return implode('', [
             $absolute ? (self::getProtocol() . self::getHost()) : '/',
@@ -68,7 +91,8 @@ class R2D2
      * @param string $path
      * @return bool|string
      */
-    public static function fileContent ($path) {
+    public static function fileContent ($path)
+    {
         $path = self::fileUrl($path, false, false);
         return file_get_contents(self::getRootPath() . $path);
     }
@@ -76,12 +100,35 @@ class R2D2
 
 
     /**
+     * @param string $url
+     * @param boolean $timestamp
+     * @param boolean $absolute
+     * @return string
+     */
+    public static function resourceUrl($url, $timestamp = false, $absolute = false)
+    {
+        return self::fileUrl(self::getResourceRelativePath() . ltrim($url, '/'), $timestamp, $absolute);
+    }
+
+    /**
+     * @param string $path
+     * @return bool|string
+     */
+    public static function resourceContent($path)
+    {
+        return self::fileContent(self::getResourceRelativePath() . ltrim($path,'/'));
+    }
+
+
+
+    /**
      * @param string $value
      * @return string
      */
-    public function attrTextValue($value) {
-            $text = strip_tags($value);
-            return htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
+    public function attrTextValue($value)
+    {
+        $text = strip_tags($value);
+        return htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
     }
 
     /**
@@ -89,7 +136,8 @@ class R2D2
      * @param string $value
      * @return string
      */
-    public function attr($name, $value) {
+    public function attr($name, $value)
+    {
         if (is_numeric($name)) {
             return $value;
         }
@@ -111,7 +159,8 @@ class R2D2
      * @param array $attrs
      * @return string
      */
-    public static function attrs ($attrs) {
+    public static function attrs ($attrs)
+    {
         $html = [];
         foreach ($attrs as $name => $value) {
             $element = self::attr($name, $value);
@@ -120,5 +169,34 @@ class R2D2
             }
         }
         return count($html) > 0 ? ' ' . implode(' ', $html) : '';
+    }
+
+
+
+    /** @type string */
+    private static $svgSpritemapPath = null;
+
+    /** @param string $svgSpritemapPath */
+    public static function setSvgSpritemapPath($svgSpritemapPath)
+    {
+        self::$svgSpritemapPath = $svgSpritemapPath;
+    }
+
+    /** @return string */
+    public static function getSvgSpritemapPath()
+    {
+        return self::$svgSpritemapPath;
+    }
+
+    /**
+     * @param string $id
+     * @param array $attrs
+     * @return string
+     */
+    public static function svgSymbol($id, $attrs = [])
+    {
+        $svgAttributes = self::attrs($attrs);
+        $useHref = self::getSvgSpritemapPath() . '#' . $id;
+        return '<svg ' . $svgAttributes . '><use xlink:href="' . $useHref . '"></use></svg>';
     }
 }
