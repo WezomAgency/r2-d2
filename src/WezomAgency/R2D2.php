@@ -2,73 +2,64 @@
 
 namespace WezomAgency;
 
+/**
+ * Class R2D2
+ * @package WezomAgency
+ */
 class R2D2
 {
-    /** @type string */
-    private static $rootPath = '';
+    private static $instance = null;
 
-    /** @param string $rootPath */
-    public static function setRootPath($rootPath)
+    /**
+     * @return R2D2
+     */
+    public static function eject()
     {
-        self::$rootPath = rtrim($rootPath, '/') . '/';
+        if (self::$instance instanceof R2D2) {
+            return self::$instance;
+        }
+        return self::$instance = new R2D2();
     }
-
-    /** @return string */
-    public static function getRootPath()
-    {
-        return self::$rootPath;
-    }
-
 
     /** @type string */
-    private static $resourceRelativePath = '';
-
-    /** @param string $resourceRelativePath */
-    public static function setResourceRelativePath($resourceRelativePath)
-    {
-        self::$resourceRelativePath = rtrim($resourceRelativePath, '/') . '/';
-    }
-
-    /** @return string */
-    public static function getResourceRelativePath()
-    {
-        return self::$resourceRelativePath;
-    }
-
-
-
+    protected $rootPath = '';
     /** @type string */
-    private static $host = '';
-
-    /** @param string $host */
-    public static function setHost ($host)
-    {
-        self::$host = $host;
-    }
-
-    /** @return string */
-    public static function getHost ()
-    {
-        return self::$host;
-    }
-
-
-
+    protected $resourceRelativePath = '';
     /** @type string */
-    private static $protocol = 'http://';
+    protected $host = '';
+    /** @type string */
+    protected $protocol = 'http://';
+    /** @type string */
+    protected $svgSpritemapPath = '';
+    /** @type bool */
+    protected $debug = false;
 
-    /** @param string $protocol */
-    public static function setProtocol ($protocol)
+    /**
+     * @param string $key
+     * @param string $value
+     * @return R2D2 $this
+     * @throws \Exception
+     */
+    public function set($key, $value)
     {
-        self::$protocol = $protocol;
-    }
+        if (property_exists($this, $key) === false) {
+            if ($this->debug) {
+                throw new \Exception("Property $key does not exist in class " . __CLASS__);
+            } else {
+                return $this;
+            }
+        }
+        switch ($key) {
+            case 'rootPath':
+            case 'resourceRelativePath':
+                $this->$key = rtrim($value, '/') . '/';
+                break;
+            default:
+                $this->$key = $value;
+        }
 
-    /** @return string */
-    public static function getProtocol ()
-    {
-        return self::$protocol;
+        return $this;
     }
-
 
 
     /**
@@ -77,13 +68,13 @@ class R2D2
      * @param boolean $absolute
      * @return string
      */
-    public static function fileUrl ($url, $timestamp = false, $absolute = false)
+    public function fileUrl($url, $timestamp = false, $absolute = false)
     {
         $file = trim($url, '/');
         return implode('', [
-            $absolute ? (self::getProtocol() . self::getHost()) : '/',
+            $absolute ? ($this->protocol . $this->host) : '/',
             $file,
-            $timestamp ? ('?time=' . fileatime(self::getRootPath() . $file)) : ''
+            $timestamp ? ('?time=' . fileatime($this->rootPath . $file)) : ''
         ]);
     }
 
@@ -91,12 +82,11 @@ class R2D2
      * @param string $path
      * @return bool|string
      */
-    public static function fileContent ($path)
+    public function fileContent($path)
     {
-        $path = self::fileUrl($path, false, false);
-        return file_get_contents(self::getRootPath() . $path);
+        $path = $this->fileUrl($path, false, false);
+        return file_get_contents($this->rootPath . $path);
     }
-
 
 
     /**
@@ -105,20 +95,19 @@ class R2D2
      * @param boolean $absolute
      * @return string
      */
-    public static function resourceUrl($url, $timestamp = false, $absolute = false)
+    public function resourceUrl($url, $timestamp = false, $absolute = false)
     {
-        return self::fileUrl(self::getResourceRelativePath() . ltrim($url, '/'), $timestamp, $absolute);
+        return $this->fileUrl($this->resourceRelativePath . ltrim($url, '/'), $timestamp, $absolute);
     }
 
     /**
      * @param string $path
      * @return bool|string
      */
-    public static function resourceContent($path)
+    public function resourceContent($path)
     {
-        return self::fileContent(self::getResourceRelativePath() . ltrim($path,'/'));
+        return $this->fileContent($this->resourceRelativePath . ltrim($path, '/'));
     }
-
 
 
     /**
@@ -159,7 +148,7 @@ class R2D2
      * @param array $attrs
      * @return string
      */
-    public static function attrs ($attrs)
+    public function attrs($attrs)
     {
         $html = [];
         foreach ($attrs as $name => $value) {
@@ -172,28 +161,12 @@ class R2D2
     }
 
 
-
-    /** @type string */
-    private static $svgSpritemapPath = null;
-
-    /** @param string $svgSpritemapPath */
-    public static function setSvgSpritemapPath($svgSpritemapPath)
-    {
-        self::$svgSpritemapPath = $svgSpritemapPath;
-    }
-
-    /** @return string */
-    public static function getSvgSpritemapPath()
-    {
-        return self::$svgSpritemapPath;
-    }
-
     /**
      * @param string $id
      * @param array $attrs
      * @return string
      */
-    public static function svgSymbol($id, $attrs = [])
+    public function svgSymbol($id, $attrs = [])
     {
         $svgAttributes = self::attrs($attrs);
         $useHref = self::getSvgSpritemapPath() . '#' . $id;
