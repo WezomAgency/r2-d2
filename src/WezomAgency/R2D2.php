@@ -122,7 +122,7 @@ class R2D2
 
     /**
      * @param string $name
-     * @param string $value
+     * @param * $value
      * @return string
      */
     public function attr($name, $value)
