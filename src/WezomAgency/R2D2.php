@@ -140,7 +140,7 @@ class R2D2
         }
 
         if (!is_null($value)) {
-            return $name . '="' . self::attrTextValue($value) . '"';
+            return $name . '="' . $this->attrTextValue($value) . '"';
         }
     }
 
@@ -152,7 +152,7 @@ class R2D2
     {
         $html = [];
         foreach ($attrs as $name => $value) {
-            $element = self::attr($name, $value);
+            $element = $this->attr($name, $value);
             if (!is_null($element)) {
                 $html[] = $element;
             }
@@ -168,8 +168,8 @@ class R2D2
      */
     public function svgSymbol($id, $attrs = [])
     {
-        $svgAttributes = self::attrs($attrs);
-        $useHref = self::getSvgSpritemapPath() . '#' . $id;
+        $svgAttributes = $this->attrs($attrs);
+        $useHref = $this->svgSpritemapPath . '#' . $id;
         return '<svg ' . $svgAttributes . '><use xlink:href="' . $useHref . '"></use></svg>';
     }
 }
