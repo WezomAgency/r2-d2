@@ -33,6 +33,9 @@ class R2D2
     protected $svgSpritemapPath = '';
     /** @type bool */
     protected $debug = false;
+    /** @type array */
+    protected $fileUrlTimestampsCache = [];
+
 
     /**
      * @param string $key
@@ -70,12 +73,16 @@ class R2D2
      */
     public function fileUrl($url, $timestamp = false, $absolute = false)
     {
+
+        $root = $absolutePath ? ($this->protocol . $this->host) : '/';
         $file = trim($url, '/');
-        return implode('', [
-            $absolute ? ($this->protocol . $this->host) : '/',
-            $file,
-            $timestamp ? ('?time=' . fileatime($this->rootPath . $file)) : ''
-        ]);
+        if ($timestamp) {
+            if ($this->fileUrlTimestampsCache[$file] === null) {
+                $this->fileUrlTimestampsCache[$file] = '?time=' . fileatime($this->rootPath . $file);
+            }
+            return $root . $file . $this->fileUrlTimestampsCache[$file];
+        }
+        return $root . $file;
     }
 
     /**
