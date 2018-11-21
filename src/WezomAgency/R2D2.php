@@ -142,6 +142,11 @@ class R2D2
             return $value ? $name : '';
         }
 
+        if (is_array($value) && $name === 'style') {
+            $css = $this->cssRules($value);
+            return $css ? 'style="' . $css . '"' : '';
+        }
+
         if (is_array($value) && $name === 'class') {
             return 'class="' . implode(' ', $value) . '"';
         }
@@ -157,14 +162,43 @@ class R2D2
      */
     public function attrs($attrs)
     {
-        $html = [];
+        $markup = [];
         foreach ($attrs as $name => $value) {
             $element = $this->attr($name, $value);
             if (!is_null($element)) {
-                $html[] = $element;
+                $markup[] = $element;
             }
         }
-        return count($html) > 0 ? ' ' . implode(' ', $html) : '';
+        return count($markup) > 0 ? ' ' . implode(' ', $markup) : '';
+    }
+
+    /**
+     * @param string $name
+     * @param * $value
+     * @return string
+     */
+    public function cssRule($propertyName, $propertyValue)
+    {
+        if (is_numeric($propertyValue) || is_string($propertyValue)) {
+            return $propertyName . ':' . $propertyValue;
+        }
+        return null;
+    }
+
+    /**
+     * @param array $attrs
+     * @return string
+     */
+    public function cssRules($properties)
+    {
+        $rules = [];
+        foreach ($properties as $name => $value) {
+            $rule = $this->cssRule($name, $value);
+            if (!is_null($rule)) {
+                $rules[] = $rule;
+            }
+        }
+        return count($rules) > 0 ? implode(';', $rules) : '';
     }
 
 
