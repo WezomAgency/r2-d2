@@ -33,6 +33,9 @@ class R2D2
     protected $svgSpritemapPath = '';
     /** @type bool */
     protected $debug = false;
+    /** @type array */
+    protected $fileUrlTimestampsCache = [];
+
 
     /**
      * @param string $key
@@ -70,12 +73,16 @@ class R2D2
      */
     public function fileUrl($url, $timestamp = false, $absolute = false)
     {
+
+        $root = $absolutePath ? ($this->protocol . $this->host) : '/';
         $file = trim($url, '/');
-        return implode('', [
-            $absolute ? ($this->protocol . $this->host) : '/',
-            $file,
-            $timestamp ? ('?time=' . fileatime($this->rootPath . $file)) : ''
-        ]);
+        if ($timestamp) {
+            if ($this->fileUrlTimestampsCache[$file] === null) {
+                $this->fileUrlTimestampsCache[$file] = '?time=' . fileatime($this->rootPath . $file);
+            }
+            return $root . $file . $this->fileUrlTimestampsCache[$file];
+        }
+        return $root . $file;
     }
 
     /**
@@ -122,7 +129,7 @@ class R2D2
 
     /**
      * @param string $name
-     * @param string $value
+     * @param * $value
      * @return string
      */
     public function attr($name, $value)
@@ -133,6 +140,11 @@ class R2D2
 
         if (is_bool($value) && $name !== 'value') {
             return $value ? $name : '';
+        }
+
+        if (is_array($value) && $name === 'style') {
+            $css = $this->cssRules($value);
+            return $css ? 'style="' . $css . '"' : '';
         }
 
         if (is_array($value) && $name === 'class') {
@@ -150,14 +162,43 @@ class R2D2
      */
     public function attrs($attrs)
     {
-        $html = [];
+        $markup = [];
         foreach ($attrs as $name => $value) {
             $element = $this->attr($name, $value);
             if (!is_null($element)) {
-                $html[] = $element;
+                $markup[] = $element;
             }
         }
-        return count($html) > 0 ? ' ' . implode(' ', $html) : '';
+        return count($markup) > 0 ? ' ' . implode(' ', $markup) : '';
+    }
+
+    /**
+     * @param string $name
+     * @param * $value
+     * @return string
+     */
+    public function cssRule($propertyName, $propertyValue)
+    {
+        if (is_numeric($propertyValue) || is_string($propertyValue)) {
+            return $propertyName . ':' . $propertyValue;
+        }
+        return null;
+    }
+
+    /**
+     * @param array $attrs
+     * @return string
+     */
+    public function cssRules($properties)
+    {
+        $rules = [];
+        foreach ($properties as $name => $value) {
+            $rule = $this->cssRule($name, $value);
+            if (!is_null($rule)) {
+                $rules[] = $rule;
+            }
+        }
+        return count($rules) > 0 ? implode(';', $rules) : '';
     }
 
 
