@@ -35,6 +35,8 @@ class R2D2
     protected $debug = false;
     /** @type array */
     protected $fileUrlTimestampsCache = [];
+    /** @type array */
+    protected $idCache = [];
 
 
     /**
@@ -212,5 +214,27 @@ class R2D2
         $svgAttributes = $this->attrs($attrs);
         $useHref = $this->svgSpritemapPath . '#' . $id;
         return '<svg ' . $svgAttributes . '><use xlink:href="' . $useHref . '"></use></svg>';
+    }
+
+    /**
+     * @param string $id
+     * @param null $number
+     * @return string
+     */
+    protected function getNonRepeatingId ($id, $number = null) {
+        $key = $id . ($number ? '-' . $number : '');
+        if ($this->idCache[$key] === null) {
+            $this->idCache[$key] = 1;
+            return $key;
+        }
+        return $this->getNonRepeatingId($id, ($number ? ++$number : 1));
+    }
+
+    /**
+     * @param string $id
+     * @return string
+     */
+    public function nonRepeatingId($id) {
+        return $this->getNonRepeatingId($id);
     }
 }
