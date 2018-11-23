@@ -125,7 +125,7 @@ class R2D2
      */
     public function attrTextValue($value)
     {
-        $text = strip_tags($value);
+        $text = strip_tags(preg_replace('/<br>/', ' ', $value));
         return htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
     }
 
