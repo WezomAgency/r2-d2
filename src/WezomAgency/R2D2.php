@@ -237,4 +237,48 @@ class R2D2
     public function nonRepeatingId($id) {
         return $this->getNonRepeatingId($id);
     }
+
+    /**
+     * @param string $tag
+     * @param array $attrs
+     * @param array $html
+     * @param bool $closeTag
+     * @return string
+     */
+    public function htmlElement ($tag, $attrs = [], $html = [], $closeTag = true) {
+        $element = '';
+        if (count($attrs)) {
+            $element = '<' . $tag . ' ' . $this->attrs($attrs) . '>';
+        } else {
+            $element = '<' . $tag . '>';
+        }
+
+        if ($closeTag) {
+            $element = $element . implode(' ', $html) . '</' . $tag . '>';
+        }
+        return $element;
+    }
+
+    /**
+     * @param array $attrs
+     * @return string
+     */
+    public function htmlImgElement ($attrs = []) {
+        if (!$attrs['alt']) {
+            $attrs['alt'] = true;
+        }
+        return $this->htmlElement('img', $attrs, [], false);
+    }
+
+    /**
+     * @param array $attrs
+     * @return string
+     */
+    public function htmlAnchorElement($attrs = [], $html = [])
+    {
+        if ($attrs['target'] === '_blank' && !$attrs['rel']) {
+            $attrs['rel'] = 'noopener';
+        }
+        return $this->htmlElement('a', $attrs, $html, true);
+    }
 }
