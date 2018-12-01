@@ -234,8 +234,29 @@ class R2D2
      * @param string $id
      * @return string
      */
-    public function nonRepeatingId($id) {
+    public function nonRepeatingId ($id) {
         return $this->getNonRepeatingId($id);
+    }
+
+    /**
+     * @param string $tag
+     * @param array $attrs
+     * @return string
+     */
+    public function htmlOpenTag (string $tag, $attrs = []) {
+        if (count($attrs)) {
+            return '<' . $tag . ' ' . $this->attrs($attrs) . '>';
+        }
+        return '<' . $tag . '>';
+    }
+
+    /**
+     * @param string $tag
+     * @return string
+     */
+    public function htmlCloseTag (string $tag)
+    {
+        return '</' . $tag . '>';
     }
 
     /**
@@ -245,18 +266,11 @@ class R2D2
      * @param bool $closeTag
      * @return string
      */
-    public function htmlElement ($tag, $attrs = [], $html = [], $closeTag = true) {
-        $element = '';
-        if (count($attrs)) {
-            $element = '<' . $tag . ' ' . $this->attrs($attrs) . '>';
-        } else {
-            $element = '<' . $tag . '>';
-        }
-
+    public function htmlElement (string $tag, $attrs = [], $html = [], $closeTag = true) {
         if ($closeTag) {
-            $element = $element . implode(' ', $html) . '</' . $tag . '>';
+            return $this->htmlOpenTag($tag, $attrs) . implode(' ', $html) . $this->htmlCloseTag($tag);
         }
-        return $element;
+        return $this->htmlOpenTag($tag, $attrs);
     }
 
     /**
