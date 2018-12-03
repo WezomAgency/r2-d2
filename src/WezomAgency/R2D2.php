@@ -243,7 +243,7 @@ class R2D2
      * @param array $attrs
      * @return string
      */
-    public function htmlOpenTag (string $tag, $attrs = []) {
+    public function htmlOpenTag ($tag, $attrs = []) {
         if (count($attrs)) {
             return '<' . $tag . ' ' . $this->attrs($attrs) . '>';
         }
@@ -254,7 +254,7 @@ class R2D2
      * @param string $tag
      * @return string
      */
-    public function htmlCloseTag (string $tag)
+    public function htmlCloseTag ($tag)
     {
         return '</' . $tag . '>';
     }
@@ -266,7 +266,7 @@ class R2D2
      * @param bool $closeTag
      * @return string
      */
-    public function htmlElement (string $tag, $attrs = [], $html = [], $closeTag = true) {
+    public function htmlElement ($tag, $attrs = [], $html = [], $closeTag = true) {
         if ($closeTag) {
             return $this->htmlOpenTag($tag, $attrs) . implode(' ', $html) . $this->htmlCloseTag($tag);
         }
