@@ -213,7 +213,7 @@ class R2D2
     public function svgSymbol($id, $attrs = [], $spritemap = null)
     {
         $svgAttributes = $this->attrs($attrs);
-        $useHref = $spritemap ?: $this->svgSpritemapPath . '#' . $id;
+        $useHref = ($spritemap ?: $this->svgSpritemapPath) . '#' . $id;
         return '<svg ' . $svgAttributes . '><use xlink:href="' . $useHref . '"></use></svg>';
     }
 
