@@ -120,7 +120,7 @@ class R2D2
 
 
     /**
-     * @param $value
+     * @param string $value
      * @return string
      */
     public function attrTextValue($value)
