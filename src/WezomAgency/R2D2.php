@@ -79,7 +79,7 @@ class R2D2
         $root = $absolutePath ? ($this->protocol . $this->host) : '/';
         $file = trim($url, '/');
         if ($timestamp) {
-            if ($this->fileUrlTimestampsCache[$file] === null) {
+            if ($this->fileUrlTimestampsCache[$file] === null && is_file($this->rootPath . $file)) {
                 $this->fileUrlTimestampsCache[$file] = '?time=' . fileatime($this->rootPath . $file);
             }
             return $root . $file . $this->fileUrlTimestampsCache[$file];
