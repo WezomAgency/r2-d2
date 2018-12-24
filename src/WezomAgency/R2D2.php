@@ -153,6 +153,10 @@ class R2D2
             return 'class="' . implode(' ', $value) . '"';
         }
 
+        if (strpos($name, 'json-data-') === 0) {
+            return preg_replace('/^json-/', '', $name) . "='" . json_encode($value) . "'";
+        }
+
         if (!is_null($value)) {
             return $name . '="' . $this->attrTextValue($value) . '"';
         }
