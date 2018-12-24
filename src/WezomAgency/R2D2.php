@@ -121,6 +121,20 @@ class R2D2
 
     /**
      * @param string $value
+     * @param bool $int
+     * @return int|float
+     */
+    public function str2number($value = '', $int = false)
+    {
+        if (strpos('%')) {
+            return 0;
+        }
+        return $int ? intval($value) : floatval($value);
+    }
+
+
+    /**
+     * @param string $value
      * @return string
      */
     public function attrTextValue($value)
