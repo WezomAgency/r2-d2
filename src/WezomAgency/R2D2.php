@@ -126,7 +126,7 @@ class R2D2
      */
     public function str2number($value = '', $int = false)
     {
-        if (strpos('%')) {
+        if (strpos($value, '%')) {
             return 0;
         }
         return $int ? intval($value) : floatval($value);
