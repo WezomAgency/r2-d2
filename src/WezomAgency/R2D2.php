@@ -168,7 +168,7 @@ class R2D2
         }
 
         if (strpos($name, 'json-data-') === 0) {
-            return preg_replace('/^json-/', '', $name) . "='" . json_encode($value) . "'";
+            return preg_replace('/^json-/', '', $name) . "='" . json_encode($value, JSON_UNESCAPED_UNICODE) . "'";
         }
 
         if (!is_null($value)) {
