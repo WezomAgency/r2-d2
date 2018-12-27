@@ -134,6 +134,16 @@ class R2D2
 
 
     /**
+     * @param $data
+     * @return string
+     */
+    public function attrJsonEncode($data, $options = null)
+    {
+        return preg_replace('/\'/', '&apos;', json_encode($data, $options));
+    }
+
+
+    /**
      * @param string $value
      * @return string
      */
@@ -168,7 +178,7 @@ class R2D2
         }
 
         if (strpos($name, 'json-data-') === 0) {
-            return preg_replace('/^json-/', '', $name) . "='" . json_encode($value) . "'";
+            return preg_replace('/^json-/', '', $name) . "='" . $this->attrJsonEncode($value, JSON_UNESCAPED_UNICODE) . "'";
         }
 
         if (!is_null($value)) {
