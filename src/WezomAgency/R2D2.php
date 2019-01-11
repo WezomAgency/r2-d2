@@ -76,13 +76,14 @@ class R2D2
     public function fileUrl($url, $timestamp = false, $absolute = false)
     {
 
-        $root = $absolutePath ? ($this->protocol . $this->host) : '/';
+        $root = $absolute ? ($this->protocol . $this->host) : '/';
         $file = trim($url, '/');
         if ($timestamp) {
-            if ($this->fileUrlTimestampsCache[$file] === null && is_file($this->rootPath . $file)) {
+            if (!isset($this->fileUrlTimestampsCache[$file]) && is_file($this->rootPath . $file)) {
                 $this->fileUrlTimestampsCache[$file] = '?time=' . fileatime($this->rootPath . $file);
             }
-            return $root . $file . $this->fileUrlTimestampsCache[$file];
+            $query = isset($this->fileUrlTimestampsCache[$file]) ? $this->fileUrlTimestampsCache[$file] : '';
+            return $root . $file . $query;
         }
         return $root . $file;
     }
@@ -252,11 +253,11 @@ class R2D2
      */
     protected function getNonRepeatingId ($id, $number = null) {
         $key = $id . ($number ? '-' . $number : '');
-        if ($this->idCache[$key] === null) {
-            $this->idCache[$key] = 1;
-            return $key;
+        if (isset($this->idCache[$key])) {
+            return $this->getNonRepeatingId($id, ($number ? ++$number : 1));
         }
-        return $this->getNonRepeatingId($id, ($number ? ++$number : 1));
+        $this->idCache[$key] = 1;
+        return $key;
     }
 
     /**
