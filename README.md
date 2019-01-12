@@ -9,4 +9,61 @@
 
 <img src="https://raw.githubusercontent.com/dutchenkoOleg/storage/master/img/r2d2/r2d2.gif" alt>
 
-----
+---
+
+***Table of contents***
+
+- [Install](#install)
+- [Setup](#setup)
+
+---
+
+
+
+## Install
+
+```bash
+composer require wezom-agency/browserizr
+```
+
+---
+
+## Setup
+
+in your core app file:
+
+```php
+
+use WezomAgency\R2D2;
+
+R2D2::eject()->set('KEY', VALUE);
+
+```
+
+List of settings:
+
+- `debug: bool = false`
+- `host: string = ''`
+- `protocol: string = 'http://'`
+- `rootPath: string = ''`
+- `resourceRelativePath: string = ''` - shorway path to the resources/assets directory
+- `svgSpritemapPath: string = ''` - default path to svg sprite map file
+
+
+Example of settings
+
+```php
+
+use WezomAgency\R2D2;
+
+R2D2::eject()
+    ->set(debug, true)
+    ->set('host', $_SERVER['HTTP_HOST'])
+    ->set('protocol', 'https://')
+    ->set('rootPath', './')
+    ->set('resourceRelativePath', '/my/path/to/resources/')
+    ->set(
+        'svgSpritemapPath',
+        R2D2::eject()->resourceUrl('assets/svg/common.svg', true)
+    );
+```
