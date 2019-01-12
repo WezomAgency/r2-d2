@@ -85,7 +85,7 @@ Below a list of instance methods
 #### instance::set
 
 ```php
-R2D2::eject()->set($key, $value) // => R2D2 instance
+R2D2::eject()->set($key, $value) R2D2 instance
 ```
 
 _Parameters:_
