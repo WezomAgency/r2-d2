@@ -96,7 +96,7 @@ R2D2::eject()->set($key, $value) instance
 _Parameters:_
 
 | Name       | Data type | Default value | Description    |
-| ---------- | --------- | ------------- | -------------- |
+| :--------- | :-------- | :------------ | :------------- |
 | **$name**  | _string_  |               | settings name  |
 | **$value** | _any_     |               | settings value |
 
@@ -118,7 +118,7 @@ R2D2::eject()->fileUrl($url, $timestamp = false, $absolute = false) string
 _Parameters:_
 
 | Name           | Data type | Default value | Description    |
-| -------------- | --------- | ------------- | -------------- |
+| :------------- | :-------- | :------------ | :------------- |
 | **$url**       | _string_  |               | file relative url, from site root, e.q `/assets/css/my.css`  |
 | **$timestamp** | _booleab_ | `false`       | set file versioning with query pair `?time=xxx`, if file doesn't exist - query will be empty string |
 | **$absolute**  | _booleab_ | `false`       | generate absolute url, with `protocol` and `host` setting (see [#setup section](#setup)) |
@@ -165,7 +165,7 @@ R2D2::eject()->fileContent($path) string
 _Parameters:_
 
 | Name           | Data type | Default value | Description    |
-| -------------- | --------- | ------------- | -------------- |
+| :------------- | :-------- | :------------ | :------------- |
 | **$path**      | _string_  |               | file relative url, from the `rootPath` (see [#setup section](#setup))  |
 
 _Returns:_ file content
