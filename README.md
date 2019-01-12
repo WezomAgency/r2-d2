@@ -15,6 +15,9 @@
 
 - [Install](#install)
 - [Setup](#setup)
+- [API](#api)
+	- [eject](#eject)
+	- [set](#set)
 
 ---
 
@@ -33,7 +36,6 @@ composer require wezom-agency/browserizr
 in your core app file:
 
 ```php
-
 use WezomAgency\R2D2;
 
 R2D2::eject()->set('KEY', VALUE);
@@ -46,14 +48,13 @@ List of settings:
 - `host: string = ''`
 - `protocol: string = 'http://'`
 - `rootPath: string = ''`
-- `resourceRelativePath: string = ''` - shorway path to the resources/assets directory
+- `resourceRelativePath: string = ''` - _"shortcut"_ to your resources/assets directory
 - `svgSpritemapPath: string = ''` - default path to svg sprite map file
 
 
 Example of settings
 
 ```php
-
 use WezomAgency\R2D2;
 
 R2D2::eject()
@@ -67,3 +68,34 @@ R2D2::eject()
         R2D2::eject()->resourceUrl('assets/svg/common.svg', true)
     );
 ```
+
+---
+
+## API
+
+### eject
+
+```php
+R2D2::eject(): R2D2 instance
+```
+
+Ejecting R2D2 instance.
+Below a list of instance methods
+
+### instance::set
+
+```php
+R2D2::eject()->set($key, $value): R2D2 instance
+```
+
+_Parameters:_
+
+| Name       | Data type | Default value | Description    |
+| ---------- | --------- | ------------- | -------------- |
+| **$name**  | _string_  |               | settings name  |
+| **$value** | _any_     |               | settings value |
+
+List of available settings and their values, see above ([# setup section](#setup))
+
+
+

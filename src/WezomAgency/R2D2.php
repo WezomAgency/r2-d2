@@ -40,27 +40,28 @@ class R2D2
 
 
     /**
-     * @param string $key
+     * Setup instance settings
+     * @param string $name
      * @param string $value
      * @return R2D2 $this
      * @throws \Exception
      */
-    public function set($key, $value)
+    public function set($name, $value)
     {
-        if (property_exists($this, $key) === false) {
+        if (property_exists($this, $name) === false) {
             if ($this->debug) {
-                throw new \Exception("Property $key does not exist in class " . __CLASS__);
+                throw new \Exception("Property $name does not exist in class " . __CLASS__);
             } else {
                 return $this;
             }
         }
-        switch ($key) {
+        switch ($name) {
             case 'rootPath':
             case 'resourceRelativePath':
-                $this->$key = rtrim($value, '/') . '/';
+                $this->$name = rtrim($value, '/') . '/';
                 break;
             default:
-                $this->$key = $value;
+                $this->$name = $value;
         }
 
         return $this;
