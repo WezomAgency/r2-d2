@@ -95,8 +95,8 @@ class R2D2
      */
     public function fileContent($path)
     {
-        $path = $this->fileUrl($path, false, false);
-        return file_get_contents($this->rootPath . $path);
+        $file = trim($path, '/');
+        return file_get_contents($this->rootPath . $file);
     }
 
 
