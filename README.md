@@ -17,7 +17,7 @@
 - [Setup](#setup)
 - [API](#api)
 	- [eject](#eject)
-	- [set](#set)
+	- [instance::set](#instanceset)
 
 ---
 
@@ -76,16 +76,16 @@ R2D2::eject()
 ### eject
 
 ```php
-R2D2::eject(): R2D2 instance
+R2D2::eject() // => R2D2 instance
 ```
 
 Ejecting R2D2 instance.
 Below a list of instance methods
 
-### instance::set
+#### instance::set
 
 ```php
-R2D2::eject()->set($key, $value): R2D2 instance
+R2D2::eject()->set($key, $value) // => R2D2 instance
 ```
 
 _Parameters:_
