@@ -28,7 +28,7 @@
 # Install
 
 ```bash
-composer require wezom-agency/browserizr
+composer require wezom-agency/r2d2
 ```
 
 ---
