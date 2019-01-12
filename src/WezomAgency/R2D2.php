@@ -40,27 +40,28 @@ class R2D2
 
 
     /**
-     * @param string $key
+     * Setup instance settings
+     * @param string $name
      * @param string $value
      * @return R2D2 $this
      * @throws \Exception
      */
-    public function set($key, $value)
+    public function set($name, $value)
     {
-        if (property_exists($this, $key) === false) {
+        if (property_exists($this, $name) === false) {
             if ($this->debug) {
-                throw new \Exception("Property $key does not exist in class " . __CLASS__);
+                throw new \Exception("Property $name does not exist in class " . __CLASS__);
             } else {
                 return $this;
             }
         }
-        switch ($key) {
+        switch ($name) {
             case 'rootPath':
             case 'resourceRelativePath':
-                $this->$key = rtrim($value, '/') . '/';
+                $this->$name = rtrim($value, '/') . '/';
                 break;
             default:
-                $this->$key = $value;
+                $this->$name = $value;
         }
 
         return $this;
@@ -76,13 +77,14 @@ class R2D2
     public function fileUrl($url, $timestamp = false, $absolute = false)
     {
 
-        $root = $absolutePath ? ($this->protocol . $this->host) : '/';
+        $root = $absolute ? ($this->protocol . $this->host) : '/';
         $file = trim($url, '/');
         if ($timestamp) {
-            if ($this->fileUrlTimestampsCache[$file] === null && is_file($this->rootPath . $file)) {
+            if (!isset($this->fileUrlTimestampsCache[$file]) && is_file($this->rootPath . $file)) {
                 $this->fileUrlTimestampsCache[$file] = '?time=' . fileatime($this->rootPath . $file);
             }
-            return $root . $file . $this->fileUrlTimestampsCache[$file];
+            $query = isset($this->fileUrlTimestampsCache[$file]) ? $this->fileUrlTimestampsCache[$file] : '';
+            return $root . $file . $query;
         }
         return $root . $file;
     }
@@ -93,8 +95,8 @@ class R2D2
      */
     public function fileContent($path)
     {
-        $path = $this->fileUrl($path, false, false);
-        return file_get_contents($this->rootPath . $path);
+        $file = trim($path, '/');
+        return file_get_contents($this->rootPath . $file);
     }
 
 
@@ -252,11 +254,11 @@ class R2D2
      */
     protected function getNonRepeatingId ($id, $number = null) {
         $key = $id . ($number ? '-' . $number : '');
-        if ($this->idCache[$key] === null) {
-            $this->idCache[$key] = 1;
-            return $key;
+        if (isset($this->idCache[$key])) {
+            return $this->getNonRepeatingId($id, ($number ? ++$number : 1));
         }
-        return $this->getNonRepeatingId($id, ($number ? ++$number : 1));
+        $this->idCache[$key] = 1;
+        return $key;
     }
 
     /**
