@@ -85,7 +85,7 @@ Ejecting R2D2 instance.
 Below a list of instance methods
 
 
-
+---
 
 ### instance::set
 
@@ -104,6 +104,7 @@ List of available settings and their values, see above ([#setup section](#setup)
 
 
 
+---
 
 ### instance::fileUrl
 
@@ -151,7 +152,7 @@ use WezomAgency\R2D2;
 ```
 
 
-
+---
 
 ### instance::fileContent
 
