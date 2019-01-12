@@ -11,7 +11,7 @@
 
 ---
 
-***Table of contents***
+### *Table of contents*
 
 - [Install](#install)
 - [Setup](#setup)
@@ -23,7 +23,7 @@
 
 
 
-## Install
+# Install
 
 ```bash
 composer require wezom-agency/browserizr
@@ -31,7 +31,7 @@ composer require wezom-agency/browserizr
 
 ---
 
-## Setup
+# Setup
 
 in your core app file:
 
@@ -71,21 +71,21 @@ R2D2::eject()
 
 ---
 
-## API
+# API
 
-### eject
+## eject
 
 ```php
-R2D2::eject() // => R2D2 instance
+R2D2::eject() instance
 ```
 
 Ejecting R2D2 instance.
 Below a list of instance methods
 
-#### instance::set
+### instance::set
 
 ```php
-R2D2::eject()->set($key, $value) R2D2 instance
+R2D2::eject()->set($key, $value) instance
 ```
 
 _Parameters:_
