@@ -136,7 +136,7 @@ class R2D2
      * This method is used to convert string attribute values to numbers.
      * @param string $value
      * @param bool $int
-     * @return float|int
+     * @return float|int|0 - zero if `$value` includes `%` character
      */
     public function str2number($value = '', $int = false)
     {

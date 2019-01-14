@@ -22,6 +22,7 @@
 	- [instance::fileContent](#instancefilecontent)
 	- [instance::resourceUrl](#instanceresourceurl)
 	- [instance::resourceContent](#instanceresourcecontent)
+	- [instance::str2number](#instancestr2number)
 
 ---
 
@@ -319,39 +320,17 @@ use WezomAgency\R2D2;
 This method is used to convert string attribute values to numbers.
 
 ```php
-R2D2::eject()->str2number($path) float|int
+R2D2::eject()->str2number($value) float|int
 ```
 
 _Parameters:_
 
-| Name           | Data type | Default value | Description    |
-| :------------- | :-------- | :------------ | :------------- |
-| **$path**      | _string_  |               | file relative url, from the `rootPath` (see [#setup section](#setup))  |
+| Name           | Data type  | Default value | Description           |
+| :------------- | :--------- | :------------ | :-------------------- |
+| **$value**     | _string_   | empty string  | html attr value       |
+| **$int**       | _boolean_  | `false`       | returns only integers |
 
-_Returns:_ file content
-
-
-#### Usage example
-
-```php
-<?php
- 
-use WezomAgency\R2D2;
-
-// in core app file:
-// R2D2::eject()
-//       ->set('rootPath', './')
-//       ->set('resourceRelativePath', '/my/path/to/resources/folder')
-
-?>
-<style><?= R2D2::eject()->resourceContent('css/critical.css'); ?></style>
-<!-- will get content from file ./my/path/to/resources/folder/css/critical.css -->
-```
-#### Result
-
-```html
-<style>html{font:14px/1.3em Arial;color:#222}h1{color:red;font-size:2em}.wysiswyg{font-size:16px;line-height:normal}</style>
-```
+_Returns:_ float / int / 0 - if `$value` includes `%` character
 
 
 
