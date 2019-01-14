@@ -11,6 +11,7 @@ class R2D2
     private static $instance = null;
 
     /**
+     * Ejecting R2D2 instance
      * @return R2D2
      */
     public static function eject()
@@ -40,7 +41,7 @@ class R2D2
 
 
     /**
-     * Setup instance settings
+     * Setup instance
      * @param string $name
      * @param string $value
      * @return R2D2 $this
@@ -69,6 +70,7 @@ class R2D2
 
 
     /**
+     * Generate file URL
      * @param string $url
      * @param boolean $timestamp
      * @param boolean $absolute
@@ -90,6 +92,7 @@ class R2D2
     }
 
     /**
+     * Get file contents
      * @param string $path
      * @return bool|string
      */
@@ -101,6 +104,10 @@ class R2D2
 
 
     /**
+     * This is the same method as {@link fileUrl}.
+     * The only difference is in the relative path that is used to create a full URL.
+     * This can be useful for frequently used paths that have a large nesting of directories.
+     * You can _"save"_ initial part of the path, and specify the rest when calling the method.
      * @param string $url
      * @param boolean $timestamp
      * @param boolean $absolute
@@ -112,6 +119,10 @@ class R2D2
     }
 
     /**
+     * This is the same method as {@link fileContent}.
+     * The only difference is in the relative path that is used to create a full path to the file.
+     * This can be useful for frequently used paths that have a large nesting of directories.
+     * You can _"save"_ initial part of the path, and specify the rest when calling the method.
      * @param string $path
      * @return bool|string
      */
@@ -122,9 +133,10 @@ class R2D2
 
 
     /**
+     * This method is used to convert string attribute values to numbers.
      * @param string $value
      * @param bool $int
-     * @return int|float
+     * @return float|int
      */
     public function str2number($value = '', $int = false)
     {

@@ -93,6 +93,8 @@ Below a list of instance methods
 
 ## instance::set
 
+Setup instance
+
 :arrow_up: [_Table of contents_](#table-of-contents)
 
 ```php
@@ -116,7 +118,7 @@ List of available settings and their values, see above ([#setup section](#setup)
 
 :arrow_up: [_Table of contents_](#table-of-contents)
 
-Generate file url.
+Generate file URL
 
 ```php
 R2D2::eject()->fileUrl($url, $timestamp = false, $absolute = false) string
@@ -166,7 +168,7 @@ use WezomAgency\R2D2;
 
 :arrow_up: [_Table of contents_](#table-of-contents)
 
-Get file content.
+Get file contents
 
 ```php
 R2D2::eject()->fileContent($path) string
@@ -178,7 +180,7 @@ _Parameters:_
 | :------------- | :-------- | :------------ | :------------- |
 | **$path**      | _string_  |               | file relative url, from the `rootPath` (see [#setup section](#setup))  |
 
-_Returns:_ file content
+_Returns:_ file contents
 
 
 #### Usage example
@@ -264,13 +266,60 @@ use WezomAgency\R2D2;
 :arrow_up: [_Table of contents_](#table-of-contents)
 
 This is the same method as [`instance::fileContent`](#instancefilecontent).  
-The only difference is in the relative path that is used to create a full URL.
+The only difference is in the relative path that is used to create a full path to the file.
 
 This can be useful for frequently used paths that have a large nesting of directories.   
 You can _"save"_ initial part of the path, and specify the rest when calling the method.
 
 ```php
 R2D2::eject()->resourceContent($path) string
+```
+
+_Parameters:_
+
+| Name           | Data type | Default value | Description    |
+| :------------- | :-------- | :------------ | :------------- |
+| **$path**      | _string_  |               | file relative url, from the `rootPath` (see [#setup section](#setup))  |
+
+_Returns:_ file content
+
+
+#### Usage example
+
+```php
+<?php
+ 
+use WezomAgency\R2D2;
+
+// in core app file:
+// R2D2::eject()
+//       ->set('rootPath', './')
+//       ->set('resourceRelativePath', '/my/path/to/resources/folder')
+
+?>
+<style><?= R2D2::eject()->resourceContent('css/critical.css'); ?></style>
+<!-- will get content from file ./my/path/to/resources/folder/css/critical.css -->
+```
+#### Result
+
+```html
+<style>html{font:14px/1.3em Arial;color:#222}h1{color:red;font-size:2em}.wysiswyg{font-size:16px;line-height:normal}</style>
+```
+
+
+
+
+
+---
+
+### instance::str2number
+
+:arrow_up: [_Table of contents_](#table-of-contents)
+
+This method is used to convert string attribute values to numbers.
+
+```php
+R2D2::eject()->str2number($path) float|int
 ```
 
 _Parameters:_
