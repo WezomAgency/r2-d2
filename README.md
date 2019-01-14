@@ -320,7 +320,7 @@ use WezomAgency\R2D2;
 This method is used to convert string attribute values to numbers.
 
 ```php
-R2D2::eject()->str2number($value) float|int
+R2D2::eject()->str2number($value = '', $int = false) float|int
 ```
 
 _Parameters:_
