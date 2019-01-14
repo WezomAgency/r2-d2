@@ -79,6 +79,8 @@ R2D2::eject()
 
 ## eject
 
+:arrow_up: [_Table of contents_](#table-of-contents)
+
 ```php
 R2D2::eject() instance
 ```
@@ -89,7 +91,9 @@ Below a list of instance methods
 
 ---
 
-### instance::set
+## instance::set
+
+:arrow_up: [_Table of contents_](#table-of-contents)
 
 ```php
 R2D2::eject()->set($key, $value) instance
@@ -108,7 +112,9 @@ List of available settings and their values, see above ([#setup section](#setup)
 
 ---
 
-### instance::fileUrl
+## instance::fileUrl
+
+:arrow_up: [_Table of contents_](#table-of-contents)
 
 Generate file url.
 
@@ -156,7 +162,9 @@ use WezomAgency\R2D2;
 
 ---
 
-### instance::fileContent
+## instance::fileContent
+
+:arrow_up: [_Table of contents_](#table-of-contents)
 
 Get file content.
 
@@ -197,7 +205,9 @@ use WezomAgency\R2D2;
 
 ---
 
-### instance::resourceUrl
+## instance::resourceUrl
+
+:arrow_up: [_Table of contents_](#table-of-contents)
 
 This is the same method as [`instance::fileUrl`](#instancefileurl).  
 The only difference is in the relative path that is used to create a full URL.
@@ -250,6 +260,8 @@ use WezomAgency\R2D2;
 ---
 
 ### instance::resourceContent
+
+:arrow_up: [_Table of contents_](#table-of-contents)
 
 This is the same method as [`instance::fileContent`](#instancefilecontent).  
 The only difference is in the relative path that is used to create a full URL.
