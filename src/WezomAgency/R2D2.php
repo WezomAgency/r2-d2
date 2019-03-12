@@ -321,7 +321,7 @@ class R2D2
      * @return string
      */
     public function htmlImgElement ($attrs = []) {
-        if (!$attrs['alt']) {
+        if (isset($attrs['alt'])) {
             $attrs['alt'] = true;
         }
         return $this->htmlElement('img', $attrs, [], false);
@@ -333,7 +333,7 @@ class R2D2
      */
     public function htmlAnchorElement($attrs = [], $html = [])
     {
-        if ($attrs['target'] === '_blank' && !$attrs['rel']) {
+        if (isset($attrs['target']) && $attrs['target'] === '_blank' && !isset($attrs['rel'])) {
             $attrs['rel'] = 'noopener';
         }
         return $this->htmlElement('a', $attrs, $html, true);
