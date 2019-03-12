@@ -321,7 +321,7 @@ class R2D2
      * @return string
      */
     public function htmlImgElement ($attrs = []) {
-        if (isset($attrs['alt'])) {
+        if (!isset($attrs['alt'])) {
             $attrs['alt'] = true;
         }
         return $this->htmlElement('img', $attrs, [], false);
