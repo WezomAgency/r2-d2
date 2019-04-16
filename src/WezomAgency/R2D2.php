@@ -5,6 +5,9 @@ namespace WezomAgency;
 /**
  * Class R2D2
  * @package WezomAgency
+ * @version 1.6.11
+ * @author Oleg Dutchenko <dutchenko.o.dev@gmail.com>
+ * @license MIT
  */
 class R2D2
 {
