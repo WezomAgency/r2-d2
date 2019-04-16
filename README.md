@@ -131,8 +131,8 @@ _Parameters:_
 | Name           | Data type | Default value | Description    |
 | :------------- | :-------- | :------------ | :------------- |
 | **$url**       | _string_  |               | file relative url, from site root, e.q `/assets/css/my.css`  |
-| **$timestamp** | _booleab_ | `false`       | set file versioning with query pair `?time=xxx`, if file doesn't exist - query will be empty string |
-| **$absolute**  | _booleab_ | `false`       | generate absolute url, with `protocol` and `host` setting (see [#setup section](#setup)) |
+| **$timestamp** | _boolean_ | `false`       | set file versioning with query pair `?time=xxx`, if file doesn't exist - query will be empty string |
+| **$absolute**  | _boolean_ | `false`       | generate absolute url, with `protocol` and `host` setting (see [#setup section](#setup)) |
 
 _Returns:_ URL 
 
@@ -229,8 +229,8 @@ _Parameters:_
 | Name           | Data type | Default value | Description    |
 | :------------- | :-------- | :------------ | :------------- |
 | **$url**       | _string_  |               | file relative url, from the `resourceRelativePath` (see [#setup section](#setup))  |
-| **$timestamp** | _booleab_ | `false`       | set file versioning with query pair `?time=xxx`, if file doesn't exist - query will be empty string |
-| **$absolute**  | _booleab_ | `false`       | generate absolute url, with `protocol` and `host` setting (see [#setup section](#setup)) |
+| **$timestamp** | _boolean_ | `false`       | set file versioning with query pair `?time=xxx`, if file doesn't exist - query will be empty string |
+| **$absolute**  | _boolean_ | `false`       | generate absolute url, with `protocol` and `host` setting (see [#setup section](#setup)) |
 
 _Returns:_ URL 
 
