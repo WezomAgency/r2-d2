@@ -83,7 +83,7 @@ class R2D2
     {
 
         $root = $absolute ? ($this->protocol . $this->host) : '/';
-        $root = rtrim($root, '') . '/';
+        $root = rtrim($root, '/') . '/';
         $file = trim($url, '/');
         if ($timestamp) {
             if (!isset($this->fileUrlTimestampsCache[$file]) && is_file($this->rootPath . $file)) {
