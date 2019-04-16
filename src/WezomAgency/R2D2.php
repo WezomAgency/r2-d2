@@ -5,6 +5,9 @@ namespace WezomAgency;
 /**
  * Class R2D2
  * @package WezomAgency
+ * @version 1.6.11
+ * @author Oleg Dutchenko <dutchenko.o.dev@gmail.com>
+ * @license MIT
  */
 class R2D2
 {
@@ -80,6 +83,7 @@ class R2D2
     {
 
         $root = $absolute ? ($this->protocol . $this->host) : '/';
+        $root = rtrim($root, '/') . '/';
         $file = trim($url, '/');
         if ($timestamp) {
             if (!isset($this->fileUrlTimestampsCache[$file]) && is_file($this->rootPath . $file)) {
