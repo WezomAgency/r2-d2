@@ -263,6 +263,18 @@ class R2D2
         return '<svg ' . $svgAttributes . '><use xlink:href="' . $useHref . '"></use></svg>';
     }
 
+
+    /**
+     * @param int|null $width
+     * @param int|null $height
+     * @return string
+     */
+    public function svgPlaceholder($width = 100, $height = 100)
+    {
+        return htmlspecialchars('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="' . $width . '" height="' . $height . '"></svg>');
+    }
+
+
     /**
      * @param string $id
      * @param null $number
