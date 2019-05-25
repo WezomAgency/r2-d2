@@ -52,7 +52,7 @@ class R2D2
     {
         $key = $id . ($number ? '-' . $number : '');
         if (isset($this->idCache[$key])) {
-            return $this->getNonRepeatingId($id, ($number ? ++$number : 1));
+            return $this->_getNonRepeatingId($id, ($number ? ++$number : 1));
         }
         $this->idCache[$key] = 1;
         return $key;
