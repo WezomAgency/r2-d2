@@ -75,12 +75,12 @@ class R2D2
         }
 
         if (is_array($value) && $name === 'style') {
-            $css = $this->cssRules($value);
+            $css = $this->cssRules(array_filter($value));
             return $css ? 'style="' . $css . '"' : '';
         }
 
         if (is_array($value) && $name === 'class') {
-            return 'class="' . implode(' ', $value) . '"';
+            return 'class="' . implode(' ', array_filter($value)) . '"';
         }
 
         if (strpos($name, 'json-data-') === 0) {
@@ -101,14 +101,14 @@ class R2D2
      */
     public function attrs($attrs)
     {
-        $markup = [];
+        $list = [];
         foreach ($attrs as $name => $value) {
-            $element = $this->attr($name, $value);
-            if (!is_null($element)) {
-                $markup[] = $element;
+            $attr = $this->attr($name, $value);
+            if (!is_null($attr)) {
+                $list[] = $attr;
             }
         }
-        return count($markup) > 0 ? ' ' . implode(' ', $markup) : '';
+        return count($list) > 0 ? ' ' . implode(' ', $list) : '';
     }
 
 
