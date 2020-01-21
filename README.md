@@ -5,9 +5,7 @@
 [![WezomAgency](https://img.shields.io/badge/composer-require-orange.svg)](https://packagist.org/packages/wezom-agency/r2d2)
 [![WezomAgency](https://img.shields.io/badge/Wezom-Agency-red.svg)](https://github.com/WezomAgency)
 
-> R2D2 tiny helper
-
-<img src="https://raw.githubusercontent.com/dutchenkoOleg/storage/master/img/r2d2/r2d2.gif" alt>
+> tiny helper
 
 ---
 
@@ -35,7 +33,8 @@ WezomAgency\R2D2::eject()->set('KEY', VALUE);
 
 ### API
 
-[See docs sections ►](https://github.com/WezomAgency/r2d2/blob/master/docs/index.md)
+_Working in progress..._  
+[See draft docs sections ►](https://github.com/WezomAgency/r2d2/blob/master/docs/index.md)
 
 ---
 
